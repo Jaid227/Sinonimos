@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Ruleta de Sinónimos | Juego Interactivo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="game-header">
+            <h1>🎡 RULETA DE SINÓNIMOS</h1>
+            <p class="subtitle">¡Gira y descubre palabras con +2 sinónimos!</p>
+        </div>
+
+        <div class="roulette-container">
+            <div class="roulette-card">
+                <!-- Flecha indicadora -->
+                <div class="arrow-indicator">▼</div>
+                
+                <!-- Display de la palabra seleccionada -->
+                <div class="selected-word-display" id="selectedWordDisplay">
+                    <span id="selectedWordText">✨</span>
+                </div>
+                
+                <!-- Animación de ruleta (oculta hasta girar) -->
+                <div class="roulette-animation" id="rouletteAnimation">
+                    <div class="spinning-wheel">
+                        <div class="wheel-inner"></div>
+                    </div>
+                    <p class="spinning-text">GIRANDO...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button id="spinBtn" class="btn btn-primary">
+                <span class="btn-icon">🎲</span>
+                GIRAR RULETA
+            </button>
+            <button id="synonymsBtn" class="btn btn-secondary" disabled>
+                <span class="btn-icon">📖</span>
+                VER SINÓNIMOS
+            </button>
+        </div>
+
+        <!-- Modal de sinónimos -->
+        <div id="synonymModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>📚 Sinónimos de</h2>
+                    <h3 id="modalWordTitle"></h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="synonymsList" class="synonyms-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

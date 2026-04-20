@@ -1,52 +1,125 @@
 // Lista de palabras que tienen MÁS DE DOS sinónimos (3 o más)
 const palabrasConSinonimos = [
-    { palabra: "alegre", sinonimos: ["feliz", "contento", "jovial", "radiante", "optimista"] },
-    { palabra: "triste", sinonimos: ["afligido", "deprimido", "melancólico", "apenado", "desconsolado"] },
-    { palabra: "grande", sinonimos: ["enorme", "gigante", "immenso", "colosal", "vastísimo"] },
-    { palabra: "rápido", sinonimos: ["veloz", "ligero", "ágil", "presto", "acelerado"] },
-    { palabra: "bonito", sinonimos: ["hermoso", "lindo", "bello", "atractivo", "precioso"] },
-    { palabra: "inteligente", sinonimos: ["sabio", "listo", "brillante", "astuto", "agudo"] },
-    { palabra: "feliz", sinonimos: ["dichoso", "venturoso", "satisfecho", "placentero", "gozoso"] },
-    { palabra: "valiente", sinonimos: ["audaz", "corajudo", "bravo", "heroico", "decidido"] },
-    { palabra: "rico", sinonimos: ["adinerado", "opulento", "millonario", "pudiente", "acaudalado"] },
-    { palabra: "fuerte", sinonimos: ["robusto", "vigoroso", "potente", "resistente", "sólido"] },
-    { palabra: "brillante", sinonimos: ["luminoso", "resplandeciente", "radiante", "destacado", "genial"] },
-    { palabra: "dulce", sinonimos: ["azucarado", "meloso", "suave", "tierno", "amable"] },
-    { palabra: "caliente", sinonimos: ["ardiente", "cálido", "quemante", "sofocante", "tórrido"] },
-    { palabra: "comenzar", sinonimos: ["iniciar", "empezar", "arrancar", "lanzar", "emprender"] },
-    { palabra: "ayudar", sinonimos: ["asistir", "colaborar", "socorrer", "apoyar", "auxiliar"] },
-    { palabra: "construir", sinonimos: ["edificar", "fabricar", "levantar", "crear", "erigir"] },
-    { palabra: "ganar", sinonimos: ["vencer", "triunfar", "obtener", "conseguir", "alcanzar"] },
-    { palabra: "enseñar", sinonimos: ["educar", "instruir", "formar", "adiestrar", "ilustrar"] },
-    { palabra: "caminar", sinonimos: ["andar", "marchar", "pasear", "deambular", "recorrer"] },
-    { palabra: "mirar", sinonimos: ["observar", "contemplar", "visualizar", "examinar", "admirar"] },
-    { palabra: "escuchar", sinonimos: ["oír", "atender", "prestar atención", "acuciar", "escuchar"] },
-    { palabra: "amar", sinonimos: ["querer", "adorar", "enamorar", "apreciar", "estimar"] },
-    { palabra: "pelear", sinonimos: ["combatir", "luchar", "batallar", "disputar", "enfrentar"] },
-    { palabra: "guardar", sinonimos: ["proteger", "resguardar", "almacenar", "conservar", "custodiar"] },
-    { palabra: "mostrar", sinonimos: ["exhibir", "presentar", "demostrar", "enseñar", "revelar"] },
-    { palabra: "pensar", sinonimos: ["reflexionar", "meditar", "cavilar", "considerar", "razonar"] },
-    { palabra: "lograr", sinonimos: ["conseguir", "alcanzar", "obtener", "realizar", "cumplir"] },
-    { palabra: "buscar", sinonimos: ["rastrear", "indagar", "explorar", "investigar", "rebuscar"] },
-    { palabra: "trabajar", sinonimos: ["laborar", "emplearse", "oficiar", "desempeñar", "ejercer"] },
-    { palabra: "comer", sinonimos: ["alimentarse", "ingerir", "nutrirse", "consumir", "devorar"] },
-    { palabra: "mentir", sinonimos: ["engañar", "falsificar", "tergiversar", "falsear", "inventar"] },
-    { palabra: "decir", sinonimos: ["expresar", "manifestar", "declarar", "enunciar", "comunicar"] }
+    { palabra: "feliz", sinonimos: ["contento", "alegre", "animado"] },
+    { palabra: "triste", sinonimos: ["apenado", "desanimado", "afligido"] },
+    { palabra: "enojado", sinonimos: ["molesto", "enfadado"] },
+    { palabra: "asustado", sinonimos: ["espantado", "temeroso", "nervioso"] },
+    { palabra: "grande", sinonimos: ["enorme", "gigante"] },
+    { palabra: "pequeño", sinonimos: ["chico", "diminuto", "reducido"] },
+    { palabra: "bonito", sinonimos: ["lindo", "hermoso", "bello"] },
+    { palabra: "feo", sinonimos: ["desagradable", "horrible"] },
+    { palabra: "rápido", sinonimos: ["veloz", "ágil"] },
+    { palabra: "lento", sinonimos: ["despacio", "pausado", "tranquilo"] },
+    { palabra: "fuerte", sinonimos: ["resistente", "duro", "sólido"] },
+    { palabra: "débil", sinonimos: ["frágil", "delicado"] },
+    { palabra: "listo", sinonimos: ["inteligente", "capaz"] },
+    { palabra: "casa", sinonimos: ["hogar", "vivienda"] },
+    { palabra: "maestro", sinonimos: ["profesor", "docente", "educador"] },
+    { palabra: "trabajo", sinonimos: ["tarea", "labor", "actividad"] },
+    { palabra: "comida", sinonimos: ["alimento", "platillo"] },
+    { palabra: "auto", sinonimos: ["coche", "carro", "automóvil"] },
+    { palabra: "caminar", sinonimos: ["andar"] },
+    { palabra: "decir", sinonimos: ["hablar", "expresar", "comentar"] },
+    { palabra: "ver", sinonimos: ["mirar", "observar", "contemplar"] },
+    { palabra: "oír", sinonimos: ["escuchar", "atender", "percibir"] },
+    { palabra: "empezar", sinonimos: ["comenzar", "iniciar", "arrancar"] },
+    { palabra: "terminar", sinonimos: ["acabar", "finalizar", "concluir"] },
+    { palabra: "ayudar", sinonimos: ["apoyar", "auxiliar", "asistir"] },
+    { palabra: "saltar", sinonimos: ["brincar"] }
 ];
 
-let palabrasValidas = [];
+let palabrasDisponibles = []; // Palabras que aún no se han usado
+let palabrasUsadas = []; // Palabras que ya se mostraron
 let palabraSeleccionada = null;
 let isSpinning = false;
 
-// Inicializar palabras válidas (todas tienen más de 2 sinónimos por diseño)
-function initPalabrasValidas() {
-    palabrasValidas = [...palabrasConSinonimos];
+// Inicializar juego
+function initJuego() {
+    // Reiniciar todas las listas
+    palabrasDisponibles = [...palabrasConSinonimos];
+    palabrasUsadas = [];
+    palabraSeleccionada = null;
+    isSpinning = false;
+    
+    // Actualizar contador
+    actualizarContador();
+    
+    // Resetear UI
+    const selectedDisplay = document.querySelector('.selected-word-display');
+    const rouletteAnim = document.getElementById('rouletteAnimation');
+    selectedDisplay.style.display = 'flex';
+    rouletteAnim.style.display = 'none';
+    document.getElementById('selectedWordText').textContent = '✨';
+    
+    // Habilitar/deshabilitar botones
+    const spinBtn = document.getElementById('spinBtn');
+    const synonymsBtn = document.getElementById('synonymsBtn');
+    spinBtn.disabled = false;
+    synonymsBtn.disabled = true;
+    
+    // Cerrar modales si están abiertos
+    cerrarModal();
+    cerrarModalCompleto();
 }
 
-// Obtener una palabra aleatoria
+// Actualizar contador de palabras restantes
+function actualizarContador() {
+    const remaining = palabrasDisponibles.length;
+    const total = palabrasConSinonimos.length;
+    const wordsRemainingSpan = document.getElementById('wordsRemaining');
+    const progressFill = document.getElementById('progressFill');
+    
+    if (wordsRemainingSpan) {
+        wordsRemainingSpan.textContent = remaining;
+    }
+    
+    if (progressFill) {
+        const percentage = ((total - remaining) / total) * 100;
+        progressFill.style.width = `${percentage}%`;
+    }
+    
+    // Verificar si se completó el juego
+    if (remaining === 0 && total > 0) {
+        mostrarJuegoCompleto();
+    }
+}
+
+// Mostrar modal de juego completado
+function mostrarJuegoCompleto() {
+    const completeModal = document.getElementById('completeModal');
+    const totalWordsCount = document.getElementById('totalWordsCount');
+    
+    if (totalWordsCount) {
+        totalWordsCount.textContent = palabrasConSinonimos.length;
+    }
+    
+    completeModal.style.display = 'block';
+    
+    // Deshabilitar botón de girar
+    const spinBtn = document.getElementById('spinBtn');
+    spinBtn.disabled = true;
+}
+
+// Cerrar modal de juego completado
+function cerrarModalCompleto() {
+    const completeModal = document.getElementById('completeModal');
+    completeModal.style.display = 'none';
+}
+
+// Obtener una palabra aleatoria de las disponibles
 function obtenerPalabraAleatoria() {
-    const indice = Math.floor(Math.random() * palabrasValidas.length);
-    return palabrasValidas[indice];
+    if (palabrasDisponibles.length === 0) {
+        return null;
+    }
+    
+    const indice = Math.floor(Math.random() * palabrasDisponibles.length);
+    const palabra = palabrasDisponibles[indice];
+    
+    // Mover de disponibles a usadas
+    palabrasDisponibles.splice(indice, 1);
+    palabrasUsadas.push(palabra);
+    
+    return palabra;
 }
 
 // Mostrar animación de ruleta
@@ -74,11 +147,47 @@ function ocultarRuletaYMostrarPalabra(palabra) {
     // Habilitar botón de sinónimos
     const synonymsBtn = document.getElementById('synonymsBtn');
     synonymsBtn.disabled = false;
+    
+    // Actualizar contador después de usar una palabra
+    actualizarContador();
+}
+
+// Efecto de confeti simple para celebración
+function crearEfectoConfeti() {
+    const confetiCount = 30;
+    for (let i = 0; i < confetiCount; i++) {
+        const confeti = document.createElement('div');
+        confeti.innerHTML = ['🎉', '🎊', '✨', '⭐', '💫', '🎈'][Math.floor(Math.random() * 6)];
+        confeti.style.position = 'fixed';
+        confeti.style.left = Math.random() * 100 + '%';
+        confeti.style.top = '-20px';
+        confeti.style.fontSize = (Math.random() * 20 + 12) + 'px';
+        confeti.style.pointerEvents = 'none';
+        confeti.style.zIndex = '9999';
+        confeti.style.opacity = '1';
+        confeti.style.transition = 'all 1s ease-out';
+        document.body.appendChild(confeti);
+        
+        setTimeout(() => {
+            confeti.style.transform = `translateY(${window.innerHeight + 50}px) rotate(${Math.random() * 360}deg)`;
+            confeti.style.opacity = '0';
+        }, 10);
+        
+        setTimeout(() => {
+            confeti.remove();
+        }, 1100);
+    }
 }
 
 // Función para girar la ruleta
 function girarRuleta() {
     if (isSpinning) return;
+    
+    // Verificar si hay palabras disponibles
+    if (palabrasDisponibles.length === 0) {
+        mostrarJuegoCompleto();
+        return;
+    }
     
     isSpinning = true;
     
@@ -115,46 +224,21 @@ function girarRuleta() {
     setTimeout(() => {
         clearInterval(intervaloGiro);
         
-        // Seleccionar palabra aleatoria
+        // Seleccionar palabra aleatoria de las disponibles
         palabraSeleccionada = obtenerPalabraAleatoria();
         
-        // Ocultar animación y mostrar la palabra seleccionada
-        ocultarRuletaYMostrarPalabra(palabraSeleccionada);
-        
-        // Agregar efecto de confeti simple
-        crearEfectoConfeti();
+        if (palabraSeleccionada) {
+            // Ocultar animación y mostrar la palabra seleccionada
+            ocultarRuletaYMostrarPalabra(palabraSeleccionada);
+            
+            // Agregar efecto de confeti simple
+            crearEfectoConfeti();
+        }
         
         isSpinning = false;
         spinBtn.disabled = false;
         // El botón de sinónimos ya se habilitó en ocultarRuletaYMostrarPalabra
     }, duracionGiro);
-}
-
-// Efecto de confeti simple para celebración
-function crearEfectoConfeti() {
-    const confetiCount = 30;
-    for (let i = 0; i < confetiCount; i++) {
-        const confeti = document.createElement('div');
-        confeti.innerHTML = ['🎉', '🎊', '✨', '⭐', '💫', '🎈'][Math.floor(Math.random() * 6)];
-        confeti.style.position = 'fixed';
-        confeti.style.left = Math.random() * 100 + '%';
-        confeti.style.top = '-20px';
-        confeti.style.fontSize = (Math.random() * 20 + 12) + 'px';
-        confeti.style.pointerEvents = 'none';
-        confeti.style.zIndex = '9999';
-        confeti.style.opacity = '1';
-        confeti.style.transition = 'all 1s ease-out';
-        document.body.appendChild(confeti);
-        
-        setTimeout(() => {
-            confeti.style.transform = `translateY(${window.innerHeight + 50}px) rotate(${Math.random() * 360}deg)`;
-            confeti.style.opacity = '0';
-        }, 10);
-        
-        setTimeout(() => {
-            confeti.remove();
-        }, 1100);
-    }
 }
 
 // Mostrar sinónimos en modal
@@ -185,7 +269,14 @@ function mostrarSinonimos() {
     modalContent.style.animation = 'slideUp 0.3s ease';
 }
 
-// Cerrar modal
+// Reiniciar el juego completo
+function reiniciarJuego() {
+    cerrarModal();
+    cerrarModalCompleto();
+    initJuego();
+}
+
+// Cerrar modal de sinónimos
 function cerrarModal() {
     const modal = document.getElementById('synonymModal');
     modal.style.display = 'none';
@@ -193,20 +284,31 @@ function cerrarModal() {
 
 // Inicializar la aplicación
 function init() {
-    initPalabrasValidas();
+    initJuego();
     
     // Configurar event listeners
     const spinBtn = document.getElementById('spinBtn');
     const synonymsBtn = document.getElementById('synonymsBtn');
+    const resetBtn = document.getElementById('resetBtn');
     const modal = document.getElementById('synonymModal');
     const closeBtn = document.querySelector('.modal-close');
+    const completeResetBtn = document.getElementById('completeResetBtn');
     
     spinBtn.addEventListener('click', girarRuleta);
     synonymsBtn.addEventListener('click', mostrarSinonimos);
+    resetBtn.addEventListener('click', reiniciarJuego);
     
     // Cerrar modal al hacer clic en X
     if (closeBtn) {
         closeBtn.addEventListener('click', cerrarModal);
+    }
+    
+    // Cerrar modal de juego completado
+    if (completeResetBtn) {
+        completeResetBtn.addEventListener('click', () => {
+            cerrarModalCompleto();
+            reiniciarJuego();
+        });
     }
     
     // Cerrar modal al hacer clic fuera
@@ -214,17 +316,10 @@ function init() {
         if (e.target === modal) {
             cerrarModal();
         }
+        if (e.target === document.getElementById('completeModal')) {
+            cerrarModalCompleto();
+        }
     });
-    
-    // Estado inicial: sin palabra mostrada
-    const selectedDisplay = document.querySelector('.selected-word-display');
-    const rouletteAnim = document.getElementById('rouletteAnimation');
-    selectedDisplay.style.display = 'flex';
-    rouletteAnim.style.display = 'none';
-    document.getElementById('selectedWordText').textContent = '✨';
-    
-    // El botón de sinónimos empieza deshabilitado
-    synonymsBtn.disabled = true;
 }
 
 // Ejecutar cuando el DOM esté listo

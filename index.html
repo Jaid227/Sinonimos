@@ -14,17 +14,25 @@
             <p class="subtitle">¡Gira y descubre palabras con +2 sinónimos!</p>
         </div>
 
+        <!-- Contador de palabras restantes -->
+        <div class="counter-container">
+            <div class="words-counter">
+                <span class="counter-label">📚 Palabras restantes:</span>
+                <span class="counter-value" id="wordsRemaining">0</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
         <div class="roulette-container">
             <div class="roulette-card">
-                <!-- Flecha indicadora -->
                 <div class="arrow-indicator">▼</div>
                 
-                <!-- Display de la palabra seleccionada -->
                 <div class="selected-word-display" id="selectedWordDisplay">
                     <span id="selectedWordText">✨</span>
                 </div>
                 
-                <!-- Animación de ruleta (oculta hasta girar) -->
                 <div class="roulette-animation" id="rouletteAnimation">
                     <div class="spinning-wheel">
                         <div class="wheel-inner"></div>
@@ -43,6 +51,10 @@
                 <span class="btn-icon">📖</span>
                 VER SINÓNIMOS
             </button>
+            <button id="resetBtn" class="btn btn-reset">
+                <span class="btn-icon">🔄</span>
+                REINICIAR JUEGO
+            </button>
         </div>
 
         <!-- Modal de sinónimos -->
@@ -55,6 +67,22 @@
                 </div>
                 <div class="modal-body">
                     <div id="synonymsList" class="synonyms-grid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de juego completado -->
+        <div id="completeModal" class="modal">
+            <div class="modal-content complete-modal">
+                <div class="modal-header complete-header">
+                    <h2>🎉 ¡FELICITACIONES! 🎉</h2>
+                </div>
+                <div class="modal-body complete-body">
+                    <p class="complete-message">¡Has descubierto todas las palabras!</p>
+                    <p class="complete-submessage">Aprendiste sinónimos de <strong id="totalWordsCount"></strong> palabras diferentes</p>
+                    <button id="completeResetBtn" class="btn btn-primary complete-btn">
+                        🔄 JUGAR DE NUEVO
+                    </button>
                 </div>
             </div>
         </div>
